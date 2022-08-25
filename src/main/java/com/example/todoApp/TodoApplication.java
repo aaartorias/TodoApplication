@@ -17,6 +17,7 @@ public class TodoApplication {
         User user = todoClientService.createUser("John");
         Todo todo = todoClientService.createTodo(user.getId(), "Daily Task", "every day tasks");
         Task task = todoClientService.createTask(todo.getId(), "file tax", LocalDateTime.now(), LocalDateTime.now());
+        todoClientService.completeTask(task.getId());
         boolean taskDeletedSuccessFully = todoClientService.removeTask(task.getId());
         System.out.println("task deletion successful : " + taskDeletedSuccessFully);
         // update task using getter and setters

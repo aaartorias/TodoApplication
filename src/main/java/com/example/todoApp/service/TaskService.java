@@ -21,4 +21,9 @@ public class TaskService {
     public Task removeTask(Integer taskId) {
         return taskRepository.remove(taskId);
     }
+
+    public void completeTask(Integer taskId) {
+        Task task = taskRepository.get(taskId);
+        task.complete();
+    }
 }

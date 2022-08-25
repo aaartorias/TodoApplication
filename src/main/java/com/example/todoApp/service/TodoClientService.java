@@ -51,4 +51,9 @@ public class TodoClientService {
         }
         return false;
     }
+
+    public void completeTask(Integer taskId) {
+        taskService.completeTask(taskId);
+        removeTask(taskId);
+    }
 }
