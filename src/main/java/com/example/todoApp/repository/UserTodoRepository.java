@@ -7,9 +7,11 @@ import java.util.Map;
 
 public class UserTodoRepository {
     private Map<Integer, List<Integer>> userIdToTodoId;
+
     public UserTodoRepository() {
         userIdToTodoId = new HashMap<>();
     }
+
     public void add(Integer userId, Integer todoId) {
         userIdToTodoId.computeIfAbsent(userId, k -> new ArrayList<>()).add(todoId);
     }

@@ -8,8 +8,8 @@ public class User {
     // but id and name works for our use case
 
     public User(String name) {
-        this.name = name;
         this.id = ++counter;
+        this.name = name;
     }
 
     public Integer getId() {

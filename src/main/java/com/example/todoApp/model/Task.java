@@ -5,15 +5,15 @@ import java.time.LocalDateTime;
 public class Task {
     private Integer id;
     private String description;
-    private LocalDateTime deadLine;
     private LocalDateTime startsOn;
+    private LocalDateTime deadLine;
     private static Integer counter = 0;
 
-    public Task(String description, LocalDateTime deadLine, LocalDateTime startsOn) {
-        this.description = description;
-        this.deadLine = deadLine;
-        this.startsOn = startsOn;
+    public Task(String description, LocalDateTime startsOn, LocalDateTime deadLine) {
         this.id = ++counter;
+        this.description = description;
+        this.startsOn = startsOn;
+        this.deadLine = deadLine;
     }
 
     public Integer getId() {

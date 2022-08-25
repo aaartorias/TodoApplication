@@ -2,7 +2,12 @@ package main.java.com.example.todoApp;
 
 public class TodoApplication {
     public static void main(String[] args) {
+        // create a user
+        // create a todo list for the user
+        // create tasks for that todolist
+        // remove a task
     }
+
     private void addTask() {
 
     }

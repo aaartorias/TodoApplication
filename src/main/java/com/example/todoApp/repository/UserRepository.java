@@ -13,7 +13,7 @@ public class UserRepository {
     }
 
     public User get(Integer id) {
-        if (this.userIdToUser.containsKey(id)) {
+        if (this.contains(id)) {
             return this.userIdToUser.get(id);
         }
         throw new RuntimeException("User not found");
@@ -21,5 +21,9 @@ public class UserRepository {
 
     public void add(User user) {
         this.userIdToUser.put(user.getId(), user);
+    }
+
+    public boolean contains(Integer userId) {
+        return this.userIdToUser.containsKey(userId);
     }
 }

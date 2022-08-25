@@ -1,7 +1,6 @@
 package main.java.com.example.todoApp.repository;
 
 import main.java.com.example.todoApp.model.Task;
-import main.java.com.example.todoApp.model.User;
 
 import java.util.HashMap;
 import java.util.Map;

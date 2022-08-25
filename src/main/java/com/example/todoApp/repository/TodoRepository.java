@@ -13,7 +13,7 @@ public class TodoRepository {
     }
 
     public Todo get(Integer id) {
-        if (this.todoIdToList.containsKey(id)) {
+        if (this.contains(id)) {
             return this.todoIdToList.get(id);
         }
         throw new RuntimeException("Todo list not found");
@@ -21,5 +21,9 @@ public class TodoRepository {
 
     public void add(Todo todo) {
         this.todoIdToList.put(todo.getId(), todo);
+    }
+
+    public boolean contains(Integer id) {
+        return this.todoIdToList.containsKey(id);
     }
 }
