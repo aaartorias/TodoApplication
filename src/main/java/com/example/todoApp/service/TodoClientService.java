@@ -56,4 +56,8 @@ public class TodoClientService {
         taskService.completeTask(taskId);
         removeTask(taskId);
     }
+
+    public void printTodoList(Integer todoId) {
+        todoService.printCurrentTasks(todoId);
+    }
 }

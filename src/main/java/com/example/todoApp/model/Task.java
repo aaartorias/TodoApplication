@@ -67,4 +67,8 @@ public class Task {
     public void complete() {
         this.setStatus(TaskStatus.COMPLETED);
     }
+
+    public boolean isInFuture() {
+        return TaskStatus.IN_FUTURE.equals(this.getStatus());
+    }
 }

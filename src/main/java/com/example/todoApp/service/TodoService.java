@@ -5,6 +5,8 @@ import main.java.com.example.todoApp.model.Todo;
 import main.java.com.example.todoApp.repository.TaskToTodoRepository;
 import main.java.com.example.todoApp.repository.TodoRepository;
 
+import java.util.List;
+
 public class TodoService {
     private TodoRepository todoRepository;
     private TaskToTodoRepository taskToTodoRepository;
@@ -35,5 +37,20 @@ public class TodoService {
 
     public void addTaskToTodo(Integer taskId, Integer todoId) {
         this.taskToTodoRepository.add(taskId, todoId);
+    }
+
+    public void printCurrentTasks(Integer todoId) {
+        Todo todo = todoRepository.get(todoId);
+        List<Task> tasks = todo.getTasks();
+        if (tasks.isEmpty()) {
+            System.out.println("Todo List is empty");
+        } else {
+            for (Task task : tasks) {
+                if (!task.isInFuture()) {
+                    System.out.println("Task Id : " + task.getId() + " Description : " + task.getDescription()
+                            + " Start Time : " + task.getStartsOn() + " Deadline : " + task.getDeadLine());
+                }
+            }
+        }
     }
 }
