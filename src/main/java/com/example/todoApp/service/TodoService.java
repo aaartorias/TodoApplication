@@ -29,10 +29,15 @@ public class TodoService {
         return this.todoRepository.get(todoId);
     }
 
-    public void removeTask(Task task) {
-        Integer todoId = this.taskToTodoRepository.get(task.getId());
+    public Todo removeTask(Task task) {
+        Integer todoId = getTodoIdForTaskId(task.getId());
         Todo todo = this.todoRepository.get(todoId);
         todo.removeTask(task);
+        return todo;
+    }
+
+    public Integer getTodoIdForTaskId(Integer taskId) {
+        return this.taskToTodoRepository.get(taskId);
     }
 
     public void addTaskToTodo(Integer taskId, Integer todoId) {

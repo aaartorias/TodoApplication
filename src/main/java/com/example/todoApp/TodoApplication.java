@@ -26,38 +26,8 @@ public class TodoApplication {
         boolean taskDeletedSuccessFully = todoClientService.removeTask(task.getId());
         System.out.println("task deletion successful : " + taskDeletedSuccessFully);
         todoClientService.printTodoList(todo.getId());
-        // update task using getter and setters
-
+        todoClientService.
+//        todoClientService.printActivityForTodoBetweenTime(todo.getId(), );
     }
 
-    private void addTask() {
-
-    }
-
-    private void getTask() {
-
-    }
-
-    private void modifyTask() {
-        // making the assumption here about the flow:
-        // we have already fetched the task and made modifications to the task using setters.
-        // in modifyTask(), we are asking to save it in the todo-list and the in-memory data store
-
-    }
-
-    private void removeTask(Integer taskId) {
-
-    }
-
-    private void listTasks() {
-
-    }
-
-    private void getStatistics() {
-
-    }
-
-    private void getActivityLog() {
-
-    }
 }

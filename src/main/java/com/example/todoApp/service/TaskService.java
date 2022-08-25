@@ -26,4 +26,26 @@ public class TaskService {
         Task task = taskRepository.get(taskId);
         task.complete();
     }
+
+    public Task updateDescription(Integer taskId, String description) {
+        Task task = taskRepository.get(taskId);
+        task.setDescription(description);
+        taskRepository.add(task);
+        return task;
+    }
+
+    public Task updateStartsOn(Integer taskId, LocalDateTime startsOn) {
+        Task task = taskRepository.get(taskId);
+        task.setStartsOn(startsOn);
+        taskRepository.add(task);
+        return task;
+    }
+
+    public Task updateDeadline(Integer taskId, LocalDateTime deadLine) {
+        Task task = taskRepository.get(taskId);
+        task.setDeadLine(deadLine);
+        taskRepository.add(task);
+        return task;
+    }
+
 }

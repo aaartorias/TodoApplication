@@ -1,22 +1,23 @@
 package main.java.com.example.todoApp.service;
 
-import main.java.com.example.todoApp.model.Task;
-import main.java.com.example.todoApp.model.Todo;
-import main.java.com.example.todoApp.model.User;
+import main.java.com.example.todoApp.model.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class TodoClientService {
     private TodoService todoService;
     private UserService userService;
     private TaskService taskService;
     private UserTodoService userTodoService;
+    private TodoActivityService todoActivityService;
 
     public TodoClientService() {
         this.todoService = new TodoService();
         this.userService = new UserService();
         this.taskService = new TaskService();
         this.userTodoService = new UserTodoService();
+        this.todoActivityService = new TodoActivityService();
     }
 
     public Todo createTodo(Integer userId, String TodoName, String description) {
@@ -24,6 +25,7 @@ public class TodoClientService {
             throw new RuntimeException("user id : " + userId + " does not exist");
         }
         Todo todo = this.todoService.addTodo(TodoName, description);
+        this.todoActivityService.todoCreated(todo);
         this.userTodoService.add(userId, todo.getId());
         return todo;
     }
@@ -38,15 +40,17 @@ public class TodoClientService {
         }
         Task task = this.taskService.addTask(description, startsOn, deadLine);
         Todo todo = this.todoService.getTodo(todoId);
-        todoService.addTaskToTodo(task.getId(), todo.getId());
+        this.todoService.addTaskToTodo(task.getId(), todo.getId());
         todo.addTask(task);
+        this.todoActivityService.todoTaskAdded(todo, task);
         return task;
     }
 
     public boolean removeTask(Integer taskId) {
         Task task = taskService.removeTask(taskId);
         if (task != null) {
-            todoService.removeTask(task);
+            Todo todo = todoService.removeTask(task);
+            this.todoActivityService.todoTaskAdded(todo, task);
             return true;
         }
         return false;
@@ -60,4 +64,37 @@ public class TodoClientService {
     public void printTodoList(Integer todoId) {
         todoService.printCurrentTasks(todoId);
     }
+
+    public void printActivityForTodoBetweenTime(Integer todoId, LocalDateTime start, LocalDateTime end) {
+         List<TodoActivity> activities = todoActivityService.getActivtyForTodoBetween(todoId, start, end);
+         for (TodoActivity activity : activities) {
+             System.out.println("Activity Id : " + activity.getId() + " Todo Id : " + activity.getTodoId() +
+                     "Todo Description : " + activity.getTodoDescription() + " Task Id : " + activity.getTaskId()
+                     + " Task Status : " + activity.getTaskStatus() + "Task Description "
+                     + activity.getTaskDescription() + " Action : " + activity.getAction());
+         }
+    }
+
+    public void updateDescription(Integer taskId, String description) {
+        Task task = taskService.updateDescription(taskId, description);
+        updateTodoActivity(taskId, task);
+    }
+
+    private void updateTodoActivity(Integer taskId, Task task) {
+        Integer todoId = this.todoService.getTodoIdForTaskId(taskId);
+        Todo todo = this.todoService.getTodo(todoId);
+        this.todoActivityService.todoTaskUpdated(todo, task);
+    }
+
+    public void updateStartsOn(Integer taskId, LocalDateTime startsOn) {
+        Task task = taskService.updateStartsOn(taskId, startsOn);
+        updateTodoActivity(taskId, task);
+    }
+
+    public void updateDeadLine(Integer taskId, LocalDateTime deadLine) {
+        Task task = taskService.updateDeadline(taskId, deadLine);
+        updateTodoActivity(taskId, task);
+    }
+
+
 }
