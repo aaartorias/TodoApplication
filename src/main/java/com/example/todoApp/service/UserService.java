@@ -10,12 +10,13 @@ public class UserService {
         this.userRepository = new UserRepository();
     }
 
-    public void addUser(String name) {
+    public User addUser(String name) {
         User user = new User(name);
-        userRepository.add(user);
+        this.userRepository.add(user);
+        return user;
     }
 
     public boolean userExists(Integer userId) {
-        return userRepository.contains(userId);
+        return this.userRepository.contains(userId);
     }
 }

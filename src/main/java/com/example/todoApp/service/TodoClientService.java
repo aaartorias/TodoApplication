@@ -2,6 +2,7 @@ package main.java.com.example.todoApp.service;
 
 import main.java.com.example.todoApp.model.Task;
 import main.java.com.example.todoApp.model.Todo;
+import main.java.com.example.todoApp.model.User;
 
 import java.time.LocalDateTime;
 
@@ -18,24 +19,36 @@ public class TodoClientService {
         this.userTodoService = new UserTodoService();
     }
 
-    public void createTodo(Integer userId, String TodoName, String description) {
+    public Todo createTodo(Integer userId, String TodoName, String description) {
         if (!userService.userExists(userId)) {
             throw new RuntimeException("user id : " + userId + " does not exist");
         }
         Todo todo = this.todoService.addTodo(TodoName, description);
         this.userTodoService.add(userId, todo.getId());
+        return todo;
     }
 
-    public void createUser(String name) {
-        this.userService.addUser(name);
+    public User createUser(String name) {
+        return this.userService.addUser(name);
     }
 
-    public void createTask(Integer todoId, String description, LocalDateTime startsOn, LocalDateTime deadLine) {
+    public Task createTask(Integer todoId, String description, LocalDateTime startsOn, LocalDateTime deadLine) {
         if (!todoService.todoExists(todoId)) {
             throw new RuntimeException("todo id : " + todoId +" does not exist");
         }
         Task task = this.taskService.addTask(description, startsOn, deadLine);
         Todo todo = this.todoService.getTodo(todoId);
+        todoService.addTaskToTodo(task.getId(), todo.getId());
         todo.addTask(task);
+        return task;
+    }
+
+    public boolean removeTask(Integer taskId) {
+        Task task = taskService.removeTask(taskId);
+        if (task != null) {
+            todoService.removeTask(task);
+            return true;
+        }
+        return false;
     }
 }

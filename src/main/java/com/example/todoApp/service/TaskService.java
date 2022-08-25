@@ -17,4 +17,8 @@ public class TaskService {
         taskRepository.add(task);
         return task;
     }
+
+    public Task removeTask(Integer taskId) {
+        return taskRepository.remove(taskId);
+    }
 }

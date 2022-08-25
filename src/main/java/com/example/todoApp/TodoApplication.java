@@ -1,11 +1,26 @@
 package main.java.com.example.todoApp;
 
+import main.java.com.example.todoApp.model.Task;
+import main.java.com.example.todoApp.model.Todo;
+import main.java.com.example.todoApp.model.User;
+import main.java.com.example.todoApp.service.TodoClientService;
+
+import java.time.LocalDateTime;
+
 public class TodoApplication {
+    // create a user
+    // create a todo list for the user
+    // create tasks for that todolist
+    // remove a task
     public static void main(String[] args) {
-        // create a user
-        // create a todo list for the user
-        // create tasks for that todolist
-        // remove a task
+        TodoClientService todoClientService = new TodoClientService();
+        User user = todoClientService.createUser("John");
+        Todo todo = todoClientService.createTodo(user.getId(), "Daily Task", "every day tasks");
+        Task task = todoClientService.createTask(todo.getId(), "file tax", LocalDateTime.now(), LocalDateTime.now());
+        boolean taskDeletedSuccessFully = todoClientService.removeTask(task.getId());
+        System.out.println("task deletion successful : " + taskDeletedSuccessFully);
+        // update task using getter and setters
+
     }
 
     private void addTask() {
