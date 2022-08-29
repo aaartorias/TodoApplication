@@ -26,7 +26,7 @@ public class TodoApplication {
         boolean taskDeletedSuccessFully = todoClientService.removeTask(task.getId());
         System.out.println("task deletion successful : " + taskDeletedSuccessFully);
         todoClientService.printTodoList(todo.getId());
-        todoClientService.
+//        todoClientService.
 //        todoClientService.printActivityForTodoBetweenTime(todo.getId(), );
     }
 

@@ -1,11 +1,15 @@
 package main.java.com.example.todoApp.repository;
 
 import main.java.com.example.todoApp.model.TodoActivity;
-import main.java.com.example.todoApp.model.User;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class TodoActivityRepository {
+    public TodoActivityRepository() {
+        this.idToActivity = new HashMap<>();
+    }
+
     Map<Integer, TodoActivity> idToActivity;
 
     public TodoActivity get(Integer id) {

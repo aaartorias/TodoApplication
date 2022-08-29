@@ -13,8 +13,8 @@ public class TodoActivityService {
     private TodoToActivityRepository todoToActivityRepository;
 
     public TodoActivityService() {
-        this.todoActivityRepository = todoActivityRepository;
-        this.todoToActivityRepository = todoToActivityRepository;
+        this.todoActivityRepository = new TodoActivityRepository();
+        this.todoToActivityRepository = new TodoToActivityRepository();
     }
 
     public void todoCreated(Todo todo) {
